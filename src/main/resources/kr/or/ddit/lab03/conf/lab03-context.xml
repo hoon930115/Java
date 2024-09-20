@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:c="http://www.springframework.org/schema/c"
+	xmlns:p="http://www.springframework.org/schema/p"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
+
+<!-- 1. 사냥꾼(3명의 사냥꾼, 프로토타입, 인스턴스 각각),    			 -->
+<!-- "클래스 세개 사냥꾼, 사냥개, 샷건 만들어야함" -->
+<!-- 2. 사냥개 (한 마리, 싱글턴) 	 -->
+<!-- 	- optional  -->
+<!-- 3. 샷건(사냥꾼은 세명은 각자 샷건을 독립적으로 가지고 있어야함)  -->
+<!-- 	- 사냥꾼이 꼭 있어야되는 의존객체 required -->
+
+<!-- 제일 먼저 주입할 수 있는 xml 설정파일을 만들어야함 -->
+
+<bean class="kr.or.ddit.lab03.objs.HuntingDog" id="huntingDog" 
+/>
+<bean class="kr.or.ddit.lab03.objs.ShotGun" scope="prototype" id="shotGun" 
+/>
+<bean class="kr.or.ddit.lab03.objs.Hunter" scope="prototype" id="hunter" 
+	c:gun-ref="shotGun"
+	p:dog-ref="huntingDog"
+	init-method="init"
+	
+/>
+
+
+</beans>

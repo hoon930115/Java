@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:c="http://www.springframework.org/schema/c"
+	xmlns:mybatis-spring="http://mybatis.org/schema/mybatis-spring"
+	xmlns:p="http://www.springframework.org/schema/p"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+		http://mybatis.org/schema/mybatis-spring http://mybatis.org/schema/mybatis-spring-1.2.xsd">
+
+	<bean class="org.mybatis.spring.SqlSessionFactoryBean" id="sqlSessionFactory" 
+		p:dataSource-ref="dataSource"
+		p:configLocation="classpath:kr/or/ddit/lab09/mybatis/Configuration.xml"
+		p:mapperLocations="classpath:kr/or/ddit/lab09/mybatis/mappers/*.xml"
+	/>
+<!-- 	"이 패키지 안에 인터페이스가 있으면 프록시를 미리 만들어줘" 라는 뜻. -->
+	<mybatis-spring:scan base-package="kr.or.ddit.jdbcboard.dao"
+		factory-ref="sqlSessionFactory"
+		annotation="org.apache.ibatis.annotations.Mapper"
+	
+	/>
+</beans>

@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:context="http://www.springframework.org/schema/context"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+		http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-4.3.xsd">
+	
+<!-- 	어노테이션 기반의 스프링 컨테이너 설정 -->
+<!-- 	1.context:annotation-config :  -->
+<!-- 		자주 활용되는 몇 가지 어노테이션들이 동작할 수 있도록 PostProcessor 를 빈으로 등록해줌. -->
+<!-- 	@Required : setter injection 시에 필수 프로퍼티 주입을 표현함. -->
+<!-- 	@AutoWired : 어노테이션 기반의 주입에 사용됨. -->
+<!-- 	@PostConstruct : 모든 주입이 끝난 후 동작할 생명주기 콜백 지정. -->
+<!-- 	@PreDestory -->
+<!-- 	@Primary : 동일 조건의 빈 중에서 우선 주입대상 설정. -->
+<!-- 	@Resource : 주입 대상의 검색 조건 다양화 가능 ex) name -->
+<!-- 	2. context:component-scan : -->
+<!-- 		특정 패키지의 아래 클래스들 중 일정 조건을 만족하는 클래스를 빈으로 등록해줌. -->
+<!-- 		@Componet -->
+<!-- 		@Repository : persistenc layer -->
+<!-- 		@Service : logic layer -->
+<!-- 		@Controller : controller layer -->
+<!-- 		@RestController -->
+<!-- 		@Configuration -->
+	<context:component-scan base-package="kr.or.ddit.lab07.objs" annotation-config="true" 
+	use-default-filters="true"
+	>
+<!-- 		<context:exclude-filter type="annotation"  -->
+<!-- 			expression="org.springframework.stereotype.Controller"/>		 -->
+	</context:component-scan>
+</beans>

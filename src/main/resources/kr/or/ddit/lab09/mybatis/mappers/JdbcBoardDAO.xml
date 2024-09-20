@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="kr.or.ddit.jdbcboard.dao.JdbcBoardDAO">
+	<insert id="insertJdbcBoard" parameterType="JdbcBoardVO">
+		 INSERT INTO JDBC_BOARD(         
+		 	    BOARD_NO                 
+		 	    , BOARD_TITLE            
+		 	    , BOARD_WRITER           
+		 	    , BOARD_DATE             
+		 	    , BOARD_CONTENT          
+		 	)VALUES(                     
+		 			BOARD_SEQ.NEXTVAL    
+		 		    , #{boardTitle, jdbcType=VARCHAR}                  
+		 		    , #{boardWriter, jdbcType=VARCHAR}                  
+		 		    , SYSDATE            
+		 		    , #{boardContent, jdbcType=CLOB}                  
+		 	)                            
+	
+	
+	</insert>
+	<select id="selectJdbcBoardList" resultType="JdbcBoardVO">  
+		SELECT	    BOARD_NO,    BOARD_TITLE,    BOARD_WRITER,        
+	    			TO_CHAR(BOARD_DATE, 'YYYY-MM-DD HH24:MI:SS')  BOARD_DATE                         				
+	    FROM    JDBC_BOARD                                           
+	    ORDER BY BOARD_NO DESC                                        	
+	</select>
+	<select id="selectJdbcBoard" parameterType="int" resultType="JdbcBoardVO">
+		SELECT                                          
+		    BOARD_NO,    BOARD_TITLE,    BOARD_WRITER,  		
+		    TO_CHAR(BOARD_DATE, 'YYYY-MM-DD HH:MI') BOARD_DATE,    
+		    BOARD_CONTENT                    					
+		FROM    JDBC_BOARD          
+<!-- 		inline parameter                    		 -->
+		WHERE BOARD_NO = #{no, jdbcType=NUMERIC}                            		
+	
+	</select>
+	<update id="updateJdbcBoard" parameterType="jdbcBoardVO">
+		UPDATE JDBC_BOARD          
+		SET                        
+		BOARD_CONTENT = #{boardContent}         
+		WHERE BOARD_NO = #{boardNo}         
+	</update>
+	<!-- 	파라미터 타입 생략가능하고 생략해도 코드 어시스트를  받기가 가능하다 -->
+	<delete id="deleteJdbcBoard" parameterType="int">
+		DELETE FROM JDBC_BOARD 
+		WHERE BOARD_NO = #{boardNo}   
+	</delete>
+</mapper>

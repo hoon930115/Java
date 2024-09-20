@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:c="http://www.springframework.org/schema/c"
+	xmlns:p="http://www.springframework.org/schema/p"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
+	
+<!-- 	스프링 컨테이너(bean container, di container, ioc container) 사용 단계 -->
+<!-- 	1. spring-context 의존성 추가(pom.xml) -->
+<!-- 	2. spring bean configuration file 정의 -->
+<!-- 	3. 스프링 컨테이너에 빈(객체)을 등록 -->
+<!-- 	4. 등록된 빈들간의 주입 관계 형성 -->
+<!-- 		- 생성자 주입 : constructor-arg, c namespace -->
+<!-- 		- setter 주입 : property, p namespace-->
+<!-- 	5. 어플리케이션의 엔트리 포인트에서 컨테이너 객체 생성 -->
+<!-- 	6. 컨테이너로부터 필요 객체(빈)을 주입받아 사용. -->
+
+<!-- 스프링 컨테이너의 bean 관리 특성 -->
+<!-- 1. 특별한 설정(scope)이 없는 한 bean은 싱글턴으로 관리됨. -->
+<!-- 		scope="singleton" : 하나의 bean이 하나의 객체를 관리함. -->
+<!-- 		scope="prototye"  : 매번 주입시마다 다른 객체를 생성하고 주입함. -->
+<!-- 2. 특별한 설정이 없는 한 등록된 모든 빈의 객체를 컨테이너가 초기화될 때 일시에 생성함. -->
+<!-- 		lazy-init="true|false" - bean 객체의 생성 시점을 지연시킬 수 있음. -->
+<!-- 3. 컨테이너는 POJO 형태의 bean 이라도 생명주기 callback 을 호출할 수 있음. -->
+<!-- init-method / destroy-method 속성으로 콜백 지정. -->
+	<bean class="kr.or.ddit.lab02.objs.Bar" id="bar" 
+	/>
+	<bean class="kr.or.ddit.lab02.objs.Baz" id="baz" 
+	/>
+	<bean class="kr.or.ddit.lab02.objs.Foo" id="foo" 
+		c:baz-ref="baz"
+		c:number="23"
+		p:bar-ref="bar"
+		p:flag="true"
+		init-method="initas"
+		destroy-method="destroyas"
+		scope="prototype"	
+	/>
+</beans>

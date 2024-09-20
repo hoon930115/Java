@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:context="http://www.springframework.org/schema/context"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+		http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-4.3.xsd">
+	
+<!-- 	CoC (Convention Over Configuration) -->
+	<bean class="kr.or.ddit.lab01.objs.dao.MariaDBDAOImpl" id="dummyDAO" />
+	
+	<bean class="kr.or.ddit.lab01.objs.service.DummyServiceImpl" id="dummyService">
+		<constructor-arg name="dao" ref="dummyDAO" />
+	</bean>
+
+<!-- 	DummyController dummyController = new DummyController(); -->
+<!-- 		dummyController.setService(dummyService); -->
+<!-- 		dummyController.setViewSub(new DummyHtmlView()); -->
+	<bean class="kr.or.ddit.lab01.objs.controller.DummyController" id="dummyController">
+		<property name="service" ref="dummyService"></property>
+		<property name="viewSub" >
+			<bean class="kr.or.ddit.lab01.objs.view.DummyHtmlView" />
+		</property>
+	</bean>
+	
+</beans>

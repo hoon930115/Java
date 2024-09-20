@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:c="http://www.springframework.org/schema/c"
+	xmlns:p="http://www.springframework.org/schema/p"
+	xmlns:util="http://www.springframework.org/schema/util"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+		http://www.springframework.org/schema/util http://www.springframework.org/schema/util/spring-util-4.3.xsd">
+
+	<bean class="kr.or.ddit.lab03.objs.HuntingDog" id="huntingDog"/>
+	<bean class="kr.or.ddit.lab03.objs.ShotGun" scope="prototype" id="shotGun"/>
+	<bean class="kr.or.ddit.lab03.objs.Hunter" 
+			c:gun-ref="shotGun"
+			p:dog-ref="huntingDog"
+			scope="prototype"
+			init-method="init"
+			id="hunter"
+		/>
+	<util:list id="dummyList"/>
+	<util:list id="hunterList" list-class="java.util.LinkedList" 
+				value-type="kr.or.ddit.lab03.objs.Hunter" >
+		<ref bean="hunter"/>
+		<ref bean="hunter"/>
+		<ref bean="hunter"/>
+	</util:list>
+	<util:set id="dogSet" set-class="java.util.LinkedHashSet" 
+			value-type="kr.or.ddit.lab03.objs.HuntingDog">
+		<ref bean="huntingDog" />
+		<ref bean="huntingDog" />
+		<ref bean="huntingDog" />
+	</util:set>
+	<util:map id="gunMap" key-type="java.lang.String" 
+				value-type="kr.or.ddit.lab03.objs.ShotGun">
+		<entry key="hunter1" value-ref="shotGun" />
+		<entry key="hunter2" value-ref="shotGun" />
+		<entry key="hunter3" value-ref="shotGun" />
+	</util:map>
+	
+	<util:properties id="dbInfo" location="classpath:kr/or/ddit/db/DbInfo.properties">
+		<prop key="newProp">propValue</prop>
+	</util:properties>
+	
+	<bean class="kr.or.ddit.lab05.objs.HuntingGameComposite" id="huntingGameComposite" 
+		c:hunterList-ref="hunterList"
+		c:dogSet-ref="dogSet"
+		c:gunMap-ref="gunMap"
+		p:dbInfo-ref="dbInfo"
+		p:stringArray-ref="stringArray"
+	/>
+	
+
+	<bean class="kr.or.ddit.lab05.objs.StringArrayFactoryBean" id="stringArray"></bean>
+		
+</beans>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
